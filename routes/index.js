@@ -1,11 +1,13 @@
 var SessionHandler = require('./session')
   , ContentHandler = require('./content')
+  , ScheduleHandler = require('./schedule')
   , ErrorHandler = require('./error').errorHandler;
 
 module.exports = exports = function(app, db) {
 
     var sessionHandler = new SessionHandler(db);
     var contentHandler = new ContentHandler(db);
+    var scheduleHandler = new ScheduleHandler(db);
 
     // Middleware to see if a user is logged in
     app.use(sessionHandler.isLoggedInMiddleware);
@@ -46,6 +48,9 @@ module.exports = exports = function(app, db) {
     // Edit a post and redirect to the edited post
     app.post('/editedpost', contentHandler.handleEditPost);
     app.post('/editpost', contentHandler.displayEditPostPage);
+
+    app.get('/schedule', scheduleHandler.displaySchedulePage);
+    app.post('/newschedule', scheduleHandler.handleNewSchedule);
 
     // Error handling middleware
     app.use(ErrorHandler);
