@@ -1,4 +1,4 @@
-var ScheduleDAO = require('../schedule').ScheduleDAO
+var ScheduleDAO = require('../schedules').ScheduleDAO
   , sanitize = require('validator').sanitize;
 
  //----------------new-------------//

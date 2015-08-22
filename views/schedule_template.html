@@ -14,7 +14,7 @@
 		}
 		#nav ul
 		{
-			margin : 50;
+			margin-top: 0;
 			padding : 0;
 			list-style : none;
 			text-align : center;
@@ -26,7 +26,7 @@
 		#nav ul li a
 		{
 			text-decoration : none;
-			padding : .2em 2em;
+			padding : .1em 1em;
 			color : #fff;
 			background-color : #036;
 		}
@@ -37,12 +37,20 @@
 		}
 		#session, #footer
 		{
-			margin-right: 7%;
-			margin-left: 7%;
+			margin-right: 4%;
+			margin-left: 4%;
 		}
 		#schedule
 		{
-			text-align: center;
+			text-align: left;
+			margin-left: 10%;
+		}
+		#button
+		{
+			border: none;
+			background-color: #036;
+			color: white;
+			padding: 2px 2px 2px 2px;
 		}
 		h1 {
 		    text-align: center;
@@ -84,19 +92,21 @@
 		{% endfor %}
 
 		<form action="/newschedule" method="POST">
-			시작 : 
-			<input name="startDate" value="{{startDate}}" type="date" required>
-			끝 : 
-			<input name="endDate" value="{{endDate}}" type="date" required>
-			일정 : 
-			<input type="text" name="scheduleContent" required>
-			<input type="submit" value="일정등록">
+			<p>
+			시작 날짜<br>
+			<input id="button" name="startDate" value="{{startDate}}" type="date" required>
+			<br><br> 끝나는 날짜<br>
+			<input id="button" name="endDate" value="{{endDate}}" type="date" required>
+			<br><br> 일정내용<br>
+			<input type="text" name="scheduleContent" required><br>
+			<input id="button" style="padding: 3px 3px 3px 3px;" type="submit" value="일정등록">
+			</p>
 		</form>
 	</div>
 
 
 	<!--4. Footer-->
-	<div id = "footer">All text & design is copyright ©1999-2015 Basecamp. All rights reserved.</div>
+	<div id = "footer" style="text-align: center;"><br>All text & design is copyright ©2015 DormTalk. All rights reserved.<br></div>
 	
 
 </body>
