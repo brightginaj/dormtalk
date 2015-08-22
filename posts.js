@@ -76,7 +76,7 @@ function PostsDAO(db) {
             "use strict"
 
             if(err) return callback(err, null);
-            console.log(post.filepath);
+            //console.log(post.filepath);
             var rmPath = post.filepath;
 
             if(rmPath != '') {

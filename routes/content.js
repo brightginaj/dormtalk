@@ -207,19 +207,12 @@ function ContentHandler (db) {
         var fileSize = Number(req.files.userPhoto.size);
 
         if (req.files.userPhoto.originalFilename != '') {
+            //'uploads' folder was made static
+            //so, in html to access the file, path info in db should be only img-name.png
+            //so then, slice 8 words(uploads/) from original path
             path = path.slice(8);
-            if(fileSize > 10485760) {
-                //size limit error msg
-                var error1 = "ERROR : 10MB 이하의 사이즈만 upload 가능합니다.";
-                //remove files from HTML form
-                fs.unlinkSync(rmPath);
-                path = '';
-                return res.render("newpost_template", {subject:title, username:req.username, body:post, tags:tags, errors:error1});
-            }
-
         } else {
             //remove emptyfile when user leave the upload form empty
-            //console.log(temp);
             fs.unlinkSync(rmPath);
             path = '';
         }

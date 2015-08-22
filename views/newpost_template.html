@@ -90,7 +90,10 @@
 	<!--4. Input box-->
 	<div id = "input_box">
 		<form action="/newpost" method="POST" enctype="multipart/form-data">
-			<div style="color: red;"> {{errors}} </div>
+			<div style="color: red;"> 
+				file size가 10MB 를 초과하면 error가 발생합니다. <br>
+				{{errors}} 
+			</div>
 
 			<h2>제목</h2>
 			<input type="text" name="subject" value="{{subject}}"><br>

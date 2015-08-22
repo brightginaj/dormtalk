@@ -22,7 +22,7 @@ MongoClient.connect('mongodb://localhost:27017/blog', function(err, db) {
     app.use(express.cookieParser());
 
     // Express middleware to populate 'req.body' so we can access POST variables
-    app.use(express.bodyParser({uploadDir : './uploads/'}));
+    app.use(express.bodyParser({uploadDir : './uploads/', limit : '10mb'}));
 
     // Application routes
     routes(app, db);
