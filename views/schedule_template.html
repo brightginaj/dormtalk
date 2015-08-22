@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<!--head-->
+<head>
+<title> DORM TALK </title>
+
+	<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+	<style type = "text/css">
+		#nav
+		{	
+			text-align : center;
+			overflow : hidden;
+			margin : auto;
+		}
+		#nav ul
+		{
+			margin : 50;
+			padding : 0;
+			list-style : none;
+			text-align : center;
+		}
+		#nav ul li
+		{
+			display : inline;
+		}
+		#nav ul li a
+		{
+			text-decoration : none;
+			padding : .2em 2em;
+			color : #fff;
+			background-color : #036;
+		}
+		#nav ul li a:hover
+		{
+			color : #fff;
+			background-color: #369;
+		}
+		#session, #footer
+		{
+			margin-right: 7%;
+			margin-left: 7%;
+		}
+		#schedule
+		{
+			text-align: center;
+		}
+		h1 {
+		    text-align: center;
+		}
+
+	</style>
+</head>
+
+<!--body-->
+<body>
+	<div id = "session">
+		{% if username %}
+		Enjoy DORM TALK, {{username}}! <a href="/logout">Logout</a>
+		{% else %}
+		<a href="/login">Login</a> | <a href="/signup">Sign Up</a><p>
+		{% endif %}
+	</div>
+
+	<!--1. Header of body-->
+	<div id = "header">
+		<h1>DORM TALK!</h1>
+	</div>
+
+	<!--2. Navigation bar-->
+	<div id = "nav">
+		<ul>
+			<li><a href="/"> HOME </a><li>
+			<li><a href="/newpost"> New Talk </a><li>
+			<li><a href="/schedule"> Schedule </a><li>
+		</ul>
+	</div>
+
+	<!--3. schedule-->
+	<div id="schedule">
+		{% for one in schedule %}
+		start date : {{one['startDate']}}<br>
+		end date : {{one['endDate']}}<br>
+		content : {{one['content']}}<br>
+		{% endfor %}
+
+		<form action="/newschedule" method="POST">
+			시작 : 
+			<input name="startDate" value="{{startDate}}" type="date" required>
+			끝 : 
+			<input name="endDate" value="{{endDate}}" type="date" required>
+			일정 : 
+			<input type="text" name="scheduleContent" required>
+			<input type="submit" value="일정등록">
+		</form>
+	</div>
+
+
+	<!--4. Footer-->
+	<div id = "footer">All text & design is copyright ©1999-2015 Basecamp. All rights reserved.</div>
+	
+
+</body>
+
+</html>
