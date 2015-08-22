@@ -39,7 +39,8 @@ function ScheduleHandler (db){
     		//console.log(results);
 
     		return res.render('schedule_template', {
-	    		schedule : results
+	    		schedule : results,
+                username : req.username //for session holding
     		});
     	});
 	}
