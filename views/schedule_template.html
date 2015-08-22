@@ -44,6 +44,7 @@
 		{
 			text-align: left;
 			margin-left: 10%;
+			margin-right: 10%;
 		}
 		#button
 		{
@@ -88,7 +89,7 @@
 		{% for one in schedule %}
 		start date : {{one['startDate']}}<br>
 		end date : {{one['endDate']}}<br>
-		content : {{one['content']}}<br>
+		content : {{one['content']}}<br><hr>
 		{% endfor %}
 
 		<form action="/newschedule" method="POST">

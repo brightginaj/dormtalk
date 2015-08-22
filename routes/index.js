@@ -35,7 +35,7 @@ module.exports = exports = function(app, db) {
     app.get('/logout', sessionHandler.displayLogoutPage);
 
     // Welcome page
-    app.get("/welcome", sessionHandler.displayWelcomePage);
+    //app.get("/welcome", sessionHandler.displayWelcomePage);
 
     // Signup form
     app.get('/signup', sessionHandler.displaySignupPage);
