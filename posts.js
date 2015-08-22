@@ -1,3 +1,5 @@
+var fs = require('fs');
+var pathMod = require('path');
 
 /* The PostsDAO must be constructed with a connected database object */
 function PostsDAO(db) {
@@ -69,6 +71,22 @@ function PostsDAO(db) {
 
     this.deletePost = function(permalink, callback){
         "use strict";
+
+        posts.findOne({'permalink' : permalink}, function(err, post){
+            "use strict"
+            if(err) return callback(err, null);
+            var rmPath = post.filepath;
+            rmPath = pathMod.join(__dirname, '/uploads', rmPath);
+            fs.unlinkSync(rmPath);
+         /*posts.findOne(permalink, function(err, post){
+            "use strict";
+            console.log(post);
+            if (err) return next(err);
+            var rmPath = post.filepath;
+            rmPath = pathMod.join('../uploads/', rmPath);
+            fs.unlinkSync(rmPath);
+        })*/
+        })
 
         posts.remove({'permalink' : permalink}, function(err, res){
             "use strict"

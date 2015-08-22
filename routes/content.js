@@ -278,15 +278,6 @@ function ContentHandler (db) {
 
         var permalink = req.body.permalink;
 
-        posts.find(permalink, function(err, post){
-            "use strict";
-
-            if (err) return next(err);
-            var rmPath = post.filepath;
-            rmPath = pathMod.join('../uploads/', rmPath);
-            fs.unlinkSync(rmPath);
-        })
-
         posts.deletePost(permalink, function(err, results) {
             "use strict";
 
