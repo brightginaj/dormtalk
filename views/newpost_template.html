@@ -1,0 +1,118 @@
+<!doctype HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko">
+<title> New talk </title>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+
+<head>
+	<style type = "text/css">
+		#nav
+		{	
+			text-align : center;
+			overflow : hidden;
+			margin : auto;
+		}
+		#nav ul
+		{
+			margin-top : 0;
+			padding : 0;
+			list-style : none;
+			text-align : center;
+		}
+		#nav ul li
+		{
+			display : inline;
+		}
+		#nav ul li a
+		{
+			text-decoration : none;
+			padding : .1em 1em;
+			color : #fff;
+			background-color : #036;
+		}
+		#nav ul li a:hover
+		{
+			color : #fff;
+			background-color: #369;
+		}
+		#session, #footer, #input_box
+		{
+			margin-right: 7%;
+			margin-left: 7%;
+		}
+		#input_box input, textarea
+		{
+			vertical-align: center;
+			width : 100%;
+			font-size : 90%;
+			display: inline-block;
+		}
+		h1 
+		{
+		    text-align: center;
+		}
+		h2
+		{
+			font-size: 90%
+		}
+		#button
+		{
+			border: none;
+			background-color: #036;
+			color: white;
+		}
+
+	</style>
+
+</head>
+
+
+<body>
+	<!--1. Session-->
+	<div id = "session">
+	Enjoy DORM TALK, {{username}}!	<a href="/logout">Logout</a>
+	</div>
+
+	<!--2. Header of body-->
+	<div id = "header">
+		<h1>DORM TALK!</h1>
+	</div>
+
+	<!--3. Navigation bar-->
+	<div id = "nav">
+		<ul>
+			<li><a href="/"> HOME </a><li>
+			<li><a href="/newpost"> New Talk </a><li>
+			<li><a href="#"> Schedule </a><li>
+		</ul>
+	</div>
+
+	<!--4. Input box-->
+	<div id = "input_box">
+		<form action="/newpost" method="POST" enctype="multipart/form-data">
+			{{errors}}
+
+			<h2>제목</h2>
+			<input type="text" name="subject" value="{{subject}}"><br>
+
+			<h2>내용</h2>
+			<textarea name="body" rows="15">{{body}}</textarea><br>
+
+			<h2>사진첨부</h2>
+			<!--accepting only an image file-->
+			<input type="file" name="userPhoto" accept="image/*">
+			
+			<h2><br>Tags(구분은 , 로 해주세요.)</h2>
+			<input type="text" name="tags" value="{{tags}}"><br>
+			<p>
+
+			<input id="button" type="submit" value="작성">
+		</form>
+	</div>
+
+	<!--5. Footer-->
+	<div id = "footer">-----------footer here--------------</div>
+
+</body>
+</html>
+

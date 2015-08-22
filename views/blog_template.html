@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<!--<html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko">-->
+<title> Dorm Talk! </title>
+<!--<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8">-->
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+
+<!--head-->
+<head>
+	<style type = "text/css">
+		#nav
+		{	
+			text-align : center;
+			overflow : hidden;
+			margin : auto;
+		}
+		#nav ul
+		{
+			margin-top : 0;
+			padding : 0;
+			list-style : none;
+			text-align : center;
+		}
+		#nav ul li
+		{
+			display : inline;
+		}
+		#nav ul li a
+		{
+			text-decoration : none;
+			padding : .1em 1em;
+			color : #fff;
+			background-color : #036;
+		}
+		#nav ul li a:hover
+		{
+			color : #fff;
+			background-color: #369;
+		}
+		#session, #footer, #main
+		{
+			margin-right: 7%;
+			margin-left: 7%;
+		}
+		#main_down li
+		{
+			list-style : none;
+		}
+		#post_title
+		{
+			color : white;
+			float : left;
+			text-align: center;
+			vertical-align: middle;
+			padding-top: 0px;
+			margin-left: 0px;
+			text-decoration: none;
+		}
+		#postbox
+		{
+			border: 1px solid #036;
+		}
+		#postbox p
+		{
+			margin-right: 4px;
+		}
+		.post_title
+		{
+			background-color: #036;
+			width: 100%;
+		}
+		h1 {
+		    text-align: center;
+		}
+
+	</style>
+</head>
+
+<!--body-->
+<body>
+	<div id = "session">
+		{% if username %}
+		Enjoy DORM TALK, {{username}}! <a href="/logout">Logout</a>
+		{% else %}
+		<a href="/login">Login</a> | <a href="/signup">Sign Up</a><p>
+		{% endif %}
+	</div>
+
+	<!--1. Header of body-->
+	<div id = "header">
+		<h1>DORM TALK!</h1>
+	</div>
+
+	<!--2. Navigation bar-->
+	<div id = "nav">
+		<ul>
+			<li><a href="/"> HOME </a><li>
+			<li><a href="/newpost"> New Talk </a><li>
+			<li><a href="#"> Schedule </a><li>
+		</ul>
+	</div>
+
+	<!--3. Paragraph box-->
+	<div id = "main"> 
+		<!--Schedule of Dorms-->
+		<div id = "main_up">-----------Scedule this week--------------</div>
+
+		<!--Posts-->
+		<div id = "main_down"> 
+			<!--Post for loop-->
+			{% for post in myposts %}
+			<a href="/post/{{post['permalink']}}" style="text-decoration: none; color: black;">
+				<div id="postbox">
+				<li>
+
+				<!--Post title, data and author-->
+				<div id="post_title" class="post_title">{{post['title']}}</div>
+				<br>
+				<p style="font-size: 75%; text-align: right;"> {{post['date']}} <i> By {{post['author']}} </i> </p>
+
+				<!--Post body-->
+				{% autoescape false %}
+				<p style="margin-left: 4px; margin-right: 4px;">{{post['body']}}</p>
+				{% endautoescape %}
+
+				<!--The number of post comments-->
+				<p style="font-size: 75%; text-align: right;">
+				Comments : {{post['comments']|length}}
+				</p>
+
+				</li>
+				</div>
+			</a>
+			{% endfor %}
+		</div>
+	</div>
+
+	<!--4. Footer-->
+	<div id = "footer">-----------footer here--------------</div>
+
+</body>
+</html>
+
+

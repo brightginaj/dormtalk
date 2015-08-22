@@ -1,0 +1,103 @@
+<!doctype HTML>
+<html>
+<head>
+<title>Talk Edit</title>
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+	<style type = "text/css">
+		#nav
+		{	
+			text-align : center;
+			overflow : hidden;
+			margin : auto;
+		}
+		#nav ul
+		{
+			margin-top : 0;
+			padding : 0;
+			list-style : none;
+			text-align : center;
+		}
+		#nav ul li
+		{
+			display : inline;
+		}
+		#nav ul li a
+		{
+			text-decoration : none;
+			padding : .1em 1em;
+			color : #fff;
+			background-color : #036;
+		}
+		#nav ul li a:hover
+		{
+			color : #fff;
+			background-color: #369;
+		}
+		#session, #footer, #edit_box
+		{
+			margin-right: 7%;
+			margin-left: 7%;
+		}
+		#edit_box input, textarea
+		{
+			vertical-align: center;
+			width : 100%;
+			font-size : 90%;
+			display: inline-block;
+		}
+		h1 
+		{
+		    text-align: center;
+		}
+		h2
+		{
+			font-size: 90%
+		}
+
+	</style>
+
+</head>
+<body>
+
+	<!--1. Session-->
+	<div id = "session">
+	Enjoy DORM TALK, {{username}}!	<a href="/logout">Logout</a>
+	</div>
+
+	<!--2. Header of body-->
+	<div id = "header">
+		<h1>DORM TALK!</h1>
+	</div>
+
+	<!--3. Navigation bar-->
+	<div id = "nav">
+		<ul>
+			<li><a href="/"> HOME </a><li>
+			<li><a href="/newpost"> New Talk </a><li>
+			<li><a href="#"> Schedule </a><li>
+		</ul>
+	</div>
+
+	<!--4. Edit box-->
+	<div id = "edit_box">
+		<form action="/editedpost" method="POST">
+			<input type="hidden" name="permalink" value="{{post['permalink']}}">
+			{{errors}}
+
+			<h2>제목</h2>
+			<input type="text" name="subject" value="{{post['title']}}">
+
+			<h2>내용<h2>
+			<textarea name="body" rows="15">{{post['body']}}</textarea>
+
+			<h2>Tags(구분은 , 로 해주세요.)</h2>
+			<input type="text" name="tags" value="{{tags}}">
+			<p>
+		
+			<input type="submit" value="Submit">
+		</form>
+	</div>
+
+</body>
+</html>
+

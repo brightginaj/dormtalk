@@ -1,0 +1,199 @@
+<!doctype HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko">
+<title> Talk </title>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+
+<!--head-->
+<head>
+	<style type = "text/css">
+		#nav
+		{	
+			text-align : center;
+			overflow : hidden;
+			margin : auto;
+		}
+		#nav ul
+		{
+			margin-top : 0;
+			padding : 0;
+			list-style : none;
+			text-align : center;
+		}
+		#nav ul li
+		{
+			display : inline;
+		}
+		#nav ul li a
+		{
+			text-decoration : none;
+			padding : .1em 1em;
+			color : #fff;
+			background-color : #036;
+		}
+		#nav ul li a:hover
+		{
+			color : #fff;
+			background-color: #369;
+		}
+		#session, #post, #new_comment, #footer, #comments
+		{
+			margin-right: 7%;
+			margin-left: 7%;
+		}
+		#new_comment input, textarea
+		{
+			vertical-align: center;
+			width: 100%;
+			font-size : 100%;
+		}
+		#post_title
+		{
+			color : white;
+			float : left;
+			text-align: center;
+			vertical-align: middle;
+			padding-top: 0px;
+			margin-left: 0px;
+			background-color: #036;
+			width: 100%;
+		}
+		#post
+		{
+			border: 1px solid #036;
+		}
+		#comments
+		{
+			border-left: 1px solid #036;
+			border-bottom: 1px solid #036;
+			border-right: 1px solid #036;
+		}
+		#post p
+		{
+			margin-right: 4px;
+		}
+		h1 
+		{
+		    text-align: center;
+		}
+		div#buttons *
+		{
+			display : inline;
+		}
+		#button
+		{
+			border: none;
+			background-color: #036;
+			color: white;
+		}
+
+	</style>
+
+</head>
+
+<!--body-->
+<body>
+	<!--1. Session-->
+	<div id = "session">
+		{% if username %}
+		Enjoy DORM TALK, {{username}}!	<a href="/logout">Logout</a>
+		{% else %}
+		<a href="/login">Login</a> | <a href="/signup">Sign Up</a><p>
+		{% endif %}
+	</div>
+
+	<!--2. Header of body-->
+	<div id = "header">
+		<h1>DORM TALK!</h1>
+	</div>
+
+	<!--3. Navigation bar-->
+	<div id = "nav">
+		<ul>
+			<li><a href="/"> HOME </a><li>
+			<li><a href="/newpost"> New Talk </a><li>
+			<li><a href="#"> Schedule </a><li>
+		</ul>
+	</div>
+
+	<!--4. Post box-->
+	<div id = "post">
+		<!--Body of post-->
+		<div id="post_title"> {{post['title']}} </div>
+		<div style="font-size: 75%; text-align: right; margin-right: 4px"> {{post['date']}} <i> By {{post['author']}} </i></div>
+
+		<!--Delete and Edit button-->
+		{% if username == {{post['author']}} %}
+			<div id = "buttons">
+				<form action="/deletepost" method="POST">
+				<input type="hidden" name="permalink" value="{{post['permalink']}}">
+				<input id="button" type="submit" value="delete" style="float: right;" onclick="return confirm('이 talk을 삭제하실건가요??')"/>
+				</form>
+
+				<form action="/editpost" method="POST">
+				<input type="hidden" name="permalink" value="{{post['permalink']}}">
+				<input id="button" type="submit" value="edit" style="float: right;">
+				</form>
+			</div>
+		{% endif %}
+
+		{% autoescape false %}
+		<p style="margin-left: 4px; margin-right: 4px;">{{post['body']}}</p>
+		{% endautoescape %}
+		<br>
+
+		<!--If user uploaded file, show it-->
+		{% if {{post['filepath']}} != '' %}
+		<div style="text-align: center;">
+		<img src = "http://147.47.239.234:3000/{{post['filepath']}}" style="max-width: 95%;" />
+		</div>
+		{% endif %}
+	
+		<!--Tags of post-->
+		<div style="font-size: 90%; margin-left: 4px; margin-right: 4px;">Tags : </div>
+		{% for tag in post.tags %}
+		    {% if loop.first %}
+		        <a href="/tag/{{tag}}">{{tag}}</a>
+		    {% else %}
+		        , <a href="/tag/{{tag}}">{{tag}}</a>
+		    {% endif %}
+		{% endfor %}
+	</div>
+
+	<!--Comments:-->
+	<div id = "comments" style="padding-top: 4px;">
+		{% for comment in post.comments %}
+			<div style="margin-left: 4px; margin-right: 4px; float: left;">[{{comment['author']}}]<br></div> 
+
+			<!--Delete button of Comments-->
+			{% if username == {{comment['author']}} %}
+				<form action="/deletecomment" method="POST">
+				<input type="hidden" name="commentBody" value="{{comment['body']}}">
+				<input type="hidden" name="permalink" value="{{post['permalink']}}">
+				<input id="button" type="submit" value="delete" onclick="return confirm('이 comment를 삭제하실건가요??')"/>
+				</form>
+			{% endif %}
+
+			<div style="margin-left: 4px; margin-right: 4px;"><br>{{comment['body']}}<br><br></div>
+		{% endfor %}
+	</div>
+
+	<!--5. New comment-->
+	<div id = "new_comment">
+		<form action="/newcomment" method="POST">
+		<input type="hidden" name="permalink" value="{{post['permalink']}}">
+		<h4>{{errors}}</h4>
+		<p style="font-size: 90%;">Name*</p>
+		<input type="text" name="commentName" value="{{comment['name']}}"><br>
+		<p style="font-size: 90%;">Comment</p>
+		<textarea name="commentBody" rows="10">{{comment['body']}}</textarea><br>
+		<input id="button" type="submit" value="Submit">
+	</div>
+
+	<!--6. Footer-->
+	<div id = "footer">-----------footer here--------------</div>
+
+</body>
+</html>
+
+
