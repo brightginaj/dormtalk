@@ -203,25 +203,32 @@ function ContentHandler (db) {
         var post = req.body.body;
         var tags = req.body.tags;
         var path = req.files.userPhoto.path;
-        //console.log(req.files)
+        var rmPath = pathMod.join(__dirname, '/../', path);
+        var fileSize = Number(req.files.userPhoto.size);
 
         if (req.files.userPhoto.originalFilename != '') {
             path = path.slice(8);
-            console.log('Image uploaded!');
+            if(fileSize > 10485760) {
+                //size limit error msg
+                var error1 = "ERROR : 10MB 이하의 사이즈만 upload 가능합니다.";
+                //remove files from HTML form
+                fs.unlinkSync(rmPath);
+                path = '';
+                return res.render("newpost_template", {subject:title, username:req.username, body:post, tags:tags, errors:error1});
+            }
+
         } else {
             //remove emptyfile when user leave the upload form empty
-            var temp = pathMod.join(__dirname, '/..');
-            temp = pathMod.join(temp, path);
             //console.log(temp);
-            fs.unlinkSync(temp);
+            fs.unlinkSync(rmPath);
             path = '';
         }
 
         if (!req.username) return res.redirect("/signup");
 
         if (!title || !post) {
-            var errors = "빈칸이 있어요!";
-            return res.render("newpost_template", {subject:title, username:req.username, body:post, tags:tags, errors:errors});
+            var error2 = "빈칸이 있어요!";
+            return res.render("newpost_template", {subject:title, username:req.username, body:post, tags:tags, errors:error2});
         }
 
         var tags_array = extract_tags(tags)

@@ -90,7 +90,7 @@
 	<!--4. Input box-->
 	<div id = "input_box">
 		<form action="/newpost" method="POST" enctype="multipart/form-data">
-			{{errors}}
+			<div style="color: red;"> {{errors}} </div>
 
 			<h2>제목</h2>
 			<input type="text" name="subject" value="{{subject}}"><br>
@@ -100,6 +100,7 @@
 
 			<h2>사진첨부</h2>
 			<!--accepting only an image file-->
+			<input type="hidden" name="MAX_FILE_SIZE" value="300" />
 			<input type="file" name="userPhoto" accept="image/*">
 			
 			<h2><br>Tags(구분은 , 로 해주세요.)</h2>

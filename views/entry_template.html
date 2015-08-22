@@ -142,7 +142,7 @@
 		{% endautoescape %}
 		<br>
 
-		<!--If user uploaded file, show it-->
+		<!--If user uploaded img file, show it-->
 		{% if {{post['filepath']}} != '' %}
 		<div style="text-align: center;">
 		<img src = "http://147.47.239.234:3000/{{post['filepath']}}" style="max-width: 95%;" />
@@ -170,11 +170,11 @@
 				<form action="/deletecomment" method="POST">
 				<input type="hidden" name="commentBody" value="{{comment['body']}}">
 				<input type="hidden" name="permalink" value="{{post['permalink']}}">
-				<input id="button" type="submit" value="delete" onclick="return confirm('이 comment를 삭제하실건가요??')"/>
+				<input id="button" type="submit" value="delete" style="margin-top: 7px;" onclick="return confirm('이 comment를 삭제하실건가요??')"/>
 				</form>
 			{% endif %}
 
-			<div style="margin-left: 4px; margin-right: 4px;"><br>{{comment['body']}}<br><br></div>
+			<div style="margin-left: 4px; margin-right: 4px; clear: left;">{{comment['body']}}<br><br></div>
 		{% endfor %}
 	</div>
 

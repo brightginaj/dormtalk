@@ -74,19 +74,16 @@ function PostsDAO(db) {
 
         posts.findOne({'permalink' : permalink}, function(err, post){
             "use strict"
+
             if(err) return callback(err, null);
+            console.log(post.filepath);
             var rmPath = post.filepath;
-            rmPath = pathMod.join(__dirname, '/uploads', rmPath);
-            fs.unlinkSync(rmPath);
-         /*posts.findOne(permalink, function(err, post){
-            "use strict";
-            console.log(post);
-            if (err) return next(err);
-            var rmPath = post.filepath;
-            rmPath = pathMod.join('../uploads/', rmPath);
-            fs.unlinkSync(rmPath);
-        })*/
-        })
+
+            if(rmPath != '') {
+                rmPath = pathMod.join(__dirname, '/uploads', rmPath);
+                fs.unlinkSync(rmPath);
+            }
+        });
 
         posts.remove({'permalink' : permalink}, function(err, res){
             "use strict"
