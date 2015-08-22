@@ -175,7 +175,7 @@
 				<form action="/deletecomment" method="POST">
 				<input type="hidden" name="commentBody" value="{{comment['body']}}">
 				<input type="hidden" name="permalink" value="{{post['permalink']}}">
-				<input id="button" type="submit" value="delete" style="margin-top: 7px;" onclick="return confirm('이 comment를 삭제하실건가요??')"/>
+				<input id="button" type="submit" value="delete" onclick="return confirm('이 comment를 삭제하실건가요??')"/>
 				</form>
 			{% endif %}
 
