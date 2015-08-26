@@ -25,6 +25,6 @@ MongoClient.connect('mongodb://localhost:27017/blog', function(err, db) {
     // Application routes
     routes(app, db);
 
-    app.listen(3000);
-    console.log('Express server listening on port 3000');
+    app.listen(80);
+    console.log('Express server listening on port 80');
 });
