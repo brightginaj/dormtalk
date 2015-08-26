@@ -13,29 +13,30 @@ function ScheduleDAO(db){
 	this.getSchedule = function(callback) {
         "use strict";
 
+        //For deleting schedule whose due is one day before
         var todayTime = new Date();
-        todayTime = todayTime.getTime();
+        todayTime = Number(todayTime.getTime());
+
+        schedule.remove({expireInfo : {$lt : todayTime}}, function(err, results){
+            console.log('deleted schedule : ' + results);
+        })
 
     	schedule.find().toArray(function(err, items) {
             "use strict";
-
-            var scheduleInDB = items;
-            
-            schedule.deleteMany({expireInfo: {$gt:todayTime}}, function(err, results){
-                console.log(results);
-            });
-
             if (err) return callback(err, null);
+ 
             callback(err, items);
         });
+
     }
 
     this.insertSchedule = function(startDate, endDate, content, callback){
     	"use strict";
 
-        //console.log('insertSchedule API');
         var temp_end_date = new Date(endDate);
-        var expireInfo = temp_end_date.getTime();
+        //expiry date for the schedule is (endDate + 10 days)
+        var expireInfo = temp_end_date.getTime() + 864000000;
+
     	//get parameters from Routers
     	var scheduleinfo = {
     		'startDate' : startDate,

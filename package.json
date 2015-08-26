@@ -1,7 +1,7 @@
 {
   "name": "DormTalk",
   "version": "0.5.0",
-  "description": "DormTalk in SNU by Jinah",
+  "description": "DormTalk in SNU by Jinah Jung",
   "main": "app.js",
   "dependencies": {
     "bcrypt-nodejs": "~0.0.3",

@@ -62,6 +62,18 @@
 
 	</style>
 
+	<script>
+		function fileSizeLimiter(){
+			var temp = document.getElementById("userFile");
+			var file = temp.files[0];
+			try {
+				if (file.size > 10485760) throw 'File size is too large(over 10MB)';
+			}
+			catch(err) {
+				document.getElementById("errorForFile").innerHTML = err;
+			}
+		}
+	</script>
 </head>
 
 
@@ -88,11 +100,6 @@
 	<!--4. Input box-->
 	<div id = "input_box">
 		<form action="/newpost" method="POST" autocomplete="off" enctype="multipart/form-data">
-			<div style="color: red;"> 
-				file size 10MB 초과시, error 발생. <br>
-				{{errors}} 
-			</div>
-
 			<h2>제목</h2>
 			<input type="text" name="subject" value="{{subject}}"><br>
 
@@ -101,14 +108,19 @@
 
 			<h2>사진첨부</h2>
 			<!--accepting only an image file-->
-			<input type="hidden" name="MAX_FILE_SIZE" value="300" />
-			<input type="file" name="userPhoto" accept="image/*">
-			
+			<input type="file" name="userPhoto" id="userFile" onchange="fileSizeLimiter()" accept="image/*">
+			<p id="errorForFile" style="color: red"></p>
+
+			<div style="color: red;"> 
+				{{errors}} 
+			</div>
+
 			<h2><br>Tags(구분은 , 로 해주세요.)</h2>
 			<input type="text" name="tags" value="{{tags}}"><br>
 			<p>
 
 			<input id="button" type="submit" value="작성">
+
 		</form>
 	</div>
 
