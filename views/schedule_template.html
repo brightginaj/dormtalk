@@ -56,7 +56,23 @@
 		h1 {
 		    text-align: center;
 		}
-
+		/*table style*/
+		table {
+		    width: 70%;
+		}
+		table, th, td {
+		    border: none;
+		    border-collapse: collapse;
+		    padding: 5px;
+		    text-align: center;
+		}
+		th {
+			background-color: #036;
+		    color: white;
+		}
+		tr:nth-child(even) {background-color: #eee;}
+		tr:nth-child(odd) {background-color:#fff;}
+		/*table style end*/
 	</style>
 </head>
 
@@ -86,17 +102,27 @@
 
 	<!--3. schedule-->
 	<div id="schedule">
-		{% for one in schedule %}
-		start date : {{one['startDate']}}<br>
-		end date : {{one['endDate']}}<br>
-		content : {{one['content']}}<br><hr>
-		{% endfor %}
+		<table align="center">
+			<tr>
+				<th>시작날짜</th>
+				<th>마감날짜</th>
+				<th>일정내용</th>
+			</tr>
+			<!--table content-->
+			{% for one in schedule %}
+			<tr>
+				<td>{{one['startDate']}}</td>
+				<td>{{one['endDate']}}</td>
+				<td>{{one['content']}}</td>
+			</tr>
+			{% endfor %}
+		</table>
 
 		<form action="/newschedule" method="POST">
 			<p>
 			시작 날짜<br>
 			<input id="button" name="startDate" value="{{startDate}}" type="date" required>
-			<br><br> 끝나는 날짜<br>
+			<br><br> 마감 날짜<br>
 			<input id="button" name="endDate" value="{{endDate}}" type="date" required>
 			<br><br> 일정내용<br>
 			<input type="text" name="scheduleContent" required><br>
