@@ -13,8 +13,17 @@ function ScheduleDAO(db){
 	this.getSchedule = function(callback) {
         "use strict";
 
+        var todayTime = new Date();
+        todayTime = todayTime.getTime();
+
     	schedule.find().toArray(function(err, items) {
             "use strict";
+
+            var scheduleInDB = items;
+            
+            schedule.deleteMany({expireInfo: {$gt:todayTime}}, function(err, results){
+                console.log(results);
+            });
 
             if (err) return callback(err, null);
             callback(err, items);
@@ -25,12 +34,14 @@ function ScheduleDAO(db){
     	"use strict";
 
         //console.log('insertSchedule API');
-
+        var temp_end_date = new Date(endDate);
+        var expireInfo = temp_end_date.getTime();
     	//get parameters from Routers
     	var scheduleinfo = {
     		'startDate' : startDate,
     		'endDate' : endDate,
-    		'content' : content
+    		'content' : content,
+            'expireInfo' : expireInfo
     	};
 
     	schedule.insert(scheduleinfo, function(err, inserted){
