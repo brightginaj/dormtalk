@@ -58,7 +58,8 @@
 		}
 		/*table style*/
 		table {
-		    width: 70%;
+		    width: 95%;
+		    font-size: 90%;
 		}
 		table, th, td {
 		    border: none;
@@ -102,11 +103,28 @@
 
 	<!--3. schedule-->
 	<div id="schedule">
+		<!--Schedule input if user is admin-->
+		{%if username == 'admin'%}
+			<form action="/newschedule" method="POST" style="text-align: center;">
+				<p>
+				시작 날짜<br>
+				<input id="button" name="startDate" value="{{startDate}}" type="date" required>
+				<br><br> 마감 날짜<br>
+				<input id="button" name="endDate" value="{{endDate}}" type="date" required>
+				<br><br> 일정내용<br>
+				<input type="text" name="scheduleContent" required><br>
+				<input id="button" style="padding: 3px 3px 3px 3px;" type="submit" value="일정등록">
+				<hr>
+				</p>
+			</form>
+		{%endif%}
+
+		<!--Schedule content display as table-->
 		<table align="center">
 			<tr>
-				<th>시작날짜</th>
-				<th>마감날짜</th>
-				<th>일정내용</th>
+				<th>시작</th>
+				<th>마감</th>
+				<th>일정</th>
 			</tr>
 			<!--table content-->
 			{% for one in schedule %}
@@ -117,18 +135,6 @@
 			</tr>
 			{% endfor %}
 		</table>
-
-		<form action="/newschedule" method="POST">
-			<p>
-			시작 날짜<br>
-			<input id="button" name="startDate" value="{{startDate}}" type="date" required>
-			<br><br> 마감 날짜<br>
-			<input id="button" name="endDate" value="{{endDate}}" type="date" required>
-			<br><br> 일정내용<br>
-			<input type="text" name="scheduleContent" required><br>
-			<input id="button" style="padding: 3px 3px 3px 3px;" type="submit" value="일정등록">
-			</p>
-		</form>
 	</div>
 
 
