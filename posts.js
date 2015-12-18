@@ -43,15 +43,13 @@ function PostsDAO(db) {
                 "raw_date" : today,
                 "img" : ''};
 
-        // now insert the post
-        // hw3.2 TODO
+
         posts.insert(post, function(err, res){
             "use strict"
             if(err) return callback(err, null);
             else callback(err, res[0].permalink);
         })
-        // TODO end
-        //callback(Error("insertEntry Not Yet Implemented!"), null);
+
     }
 
     this.editPost = function (title, body, tags, permalink, callback){
@@ -142,7 +140,7 @@ function PostsDAO(db) {
             if(err) callback(err, null);
             else callback(err, res);
         })
-        //callback(Error("addComment Not Yet Implemented!"), null);
+
     }
 
     this.deleteComment = function(permalink, body, callback){
