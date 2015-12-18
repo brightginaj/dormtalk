@@ -137,13 +137,11 @@ function PostsDAO(db) {
         //    comment['email'] = email
         //}
 
-        // hw3.3 TODO
         posts.update({permalink : permalink}, {$push : {comments : comment}}, function(err, res){
             "use strict"
             if(err) callback(err, null);
             else callback(err, res);
         })
-        //TODO end
         //callback(Error("addComment Not Yet Implemented!"), null);
     }
 
